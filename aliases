@@ -1,0 +1,5 @@
+ls=dir /B /D /ONE $*
+matrix = color 0A
+bash = cls $t "C:\Program Files (x86)\Git\bin\sh.exe" --login -i
+make = gcc -time $1 -o $2  -Wall -W -pedantic -ansi -static
+sublime = sublime_text $*
