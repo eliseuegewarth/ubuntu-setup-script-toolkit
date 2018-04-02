@@ -1,0 +1,7 @@
+export EDITOR="nano";
+export GRAPH_EDITOR="subl";
+export WORKSPACE=$HOME/workspace;
+export DULCE=$WORKSPACE/agr-react-native;
+export VIRTUALBOX='virtualbox virtualbox-ext-pack';
+export GIT_COMMENT='!';
+export CONFIGURADO=true;
