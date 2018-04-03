@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z "${CONFIGURADO}" ]; then
 	echo "Iniciando configurações...";
-	cd $HOME/Downloads/;
+	cd ~/Downloads/;
 
 	# install nodejs 8, sublime text 3
 	sudo apt-get install -y apt-transport-https curl && \
@@ -40,11 +40,11 @@ if [ -z "${CONFIGURADO}" ]; then
 	mkdir -p ~/.themes && cp -r /tmp/flat-remix-gnome/Flat-Remix* ~/.themes && \
 	gsettings set org.gnome.shell.extensions.user-theme name "Flat-Remix-dark";
 
-
+	# General bash setup
 	echo $'\nif [ -f ~/.bash_env ]; then\n    . ~/.bash_env\nfi' >> ~/.bashrc;
 
-	ln -sf $(git rev-parse --show-toplevel)/.bash_aliases $HOME/.bash_aliases;
-	ln -sf $(git rev-parse --show-toplevel)/.bash_env $HOME/.bash_env;
+	ln -sf $(git rev-parse --show-toplevel)/.bash_aliases ~/.bash_aliases;
+	ln -sf $(git rev-parse --show-toplevel)/.bash_env ~/.bash_env;
 
 	. ~/.bashrc;
 
@@ -57,22 +57,9 @@ if [ -z "${CONFIGURADO}" ]; then
 		sudo chown -R $USER:$USER $WORKSPACE;
 	fi
 
-	# Config git user defaults
-	git config --local core.commentChar $GIT_COMMENT;
-	git config --global user.email $USER_EMAIL;
-	git config --global user.name "$USER_NAME";
+	source git_start.sh
 
-	# Cheching for ssh keys
-	if [ -f $HOME/.ssh/id_rsa ]; then
-		PROTOCOL='git@';
-	else
-		PROTOCOL='https://';
-	fi
-
-	cd $WORKSPACE && \
-	git clone ${PROTOCOL}github.com/interlegis/sapl.git --branch master --single-branch;
-	git clone ${PROTOCOL}github.com/fga-gpp-mds/agr-react-native.git --branch master --single-branch;
-	git clone ${PROTOCOL}github.com/fga-gpp-mds/agr-gic-api.git --branch master --single-branch;
+	sudo npm install -g react-native-cli
 	export CONFIGURADO=true;
 	echo 'export CONFIGURADO=true;'  >> ~/.bash_env;
 	reload;
