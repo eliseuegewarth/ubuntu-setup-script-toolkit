@@ -16,7 +16,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	sudo apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' && \
 	sudo apt-get -qq update && \
 	sudo apt-cache policy docker-engine && \
-	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine > /dev/null;
+	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine htop > /dev/null;
 	sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
 	sudo chmod +x /usr/local/bin/docker-compose && \
 
