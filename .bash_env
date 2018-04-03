@@ -5,3 +5,7 @@ export DULCE=$WORKSPACE/agr-react-native;
 export VIRTUALBOX='virtualbox virtualbox-ext-pack';
 export GIT_COMMENT='!';
 export CONFIGURADO=true;
+export JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64/';
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
