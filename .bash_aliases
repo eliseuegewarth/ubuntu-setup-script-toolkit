@@ -32,3 +32,5 @@ alias sapl="cd $DULCE";
 # PPC (C programming) shortcuts
 alias ppc="(ls | grep *.c) | xargs g++ -o prog -std=c++11 -O2 -Wall && ./prog < input.txt > output.txt && diff output.txt ans.txt";
 
+alias dulce="cd $WORKSPACE/dulce/";
+alias work="cd $WORKSPACE/";
