@@ -79,7 +79,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	if [ ! -d $WORKSPACE ]; then
 	    echo "Configurando WORKSPACE para $WORKSPACE";
 		sudo mkdir $WORKSPACE > /dev/null && \
-		sudo chown -R $USER:$USER $WORKSPACE > /dev/null && \
+		sudo chown -R $USER:$USER $WORKSPACE > /dev/null
 	fi
 
 	echo "Clonando repositórios ..." && \
