@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ -z "${CONFIGURADO}" ]; then
 	echo "Iniciando configurações...";
-	REPO_PATH=$(git rev-parse --show-toplevel);
+	export REPO_PATH=$(git rev-parse --show-toplevel);
 	cd ~/Downloads/;
 
 	# install nodejs 8, sublime text 3
@@ -46,8 +46,8 @@ if [ -z "${CONFIGURADO}" ]; then
 
 	echo "gsettings image background ..." && \
 	# image background
-	sudo cp REPO_PATH/img/background.jpg /usr/share/backgrounds/background.jpg;
-	sudo cp REPO_PATH/img/background.jpg /usr/share/backgrounds/ubuntu-gnome/background.jpg;
+	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/background.jpg;
+	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/ubuntu-gnome/background.jpg;
 	gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.jpg';
 
 	echo "gsettings icon-theme Shadow ..." && \
@@ -67,8 +67,8 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo $'\nif [ -f ~/.bash_env ]; then\n    . ~/.bash_env\nfi' >> ~/.bashrc;
 
 	echo "Criando links simbolicos bash_aliases e bash_env ..." && \
-	ln -sf REPO_PATH/.bash_aliases ~/.bash_aliases;
-	ln -sf REPO_PATH/.bash_env ~/.bash_env;
+	ln -sf ${REPO_PATH}/.bash_aliases ~/.bash_aliases;
+	ln -sf ${REPO_PATH}/.bash_env ~/.bash_env;
 
 	echo "source bashrc ..." && \
 	. ~/.bashrc;
@@ -83,7 +83,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	fi
 
 	echo "Clonando repositórios ..." && \
-	cd REPO_PATH && source REPO_PATH/git_start.sh
+	cd ${REPO_PATH} && source ${REPO_PATH}/git_start.sh
 
 	echo "Finalizando configurações ..." && \
 	export CONFIGURADO=true;
