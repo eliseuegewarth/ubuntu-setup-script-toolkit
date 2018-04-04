@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Config git user defaults
+REPO_PATH=$(git rev-parse --show-toplevel);
+source REPO_PATH/.secret_env
 git config --local core.commentChar $GIT_COMMENT;
 git config --global user.email $USER_EMAIL;
 git config --global user.name "${USER_NAME}";
