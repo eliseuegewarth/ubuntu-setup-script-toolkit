@@ -83,7 +83,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	fi
 
 	echo "Clonando repositórios ..." && \
-	source REPO_PATH/git_start.sh
+	cd REPO_PATH && source REPO_PATH/git_start.sh
 
 	echo "Finalizando configurações ..." && \
 	export CONFIGURADO=true;
