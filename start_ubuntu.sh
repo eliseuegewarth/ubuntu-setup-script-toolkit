@@ -30,7 +30,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "Checando repositório Docker CE ..." && \
 	sudo apt-cache policy docker-engine > /dev/null && \
 	echo "apt install ..." && \
-	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine htop > /dev/null && \
+	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine python-pip python3-pip htop > /dev/null && \
 	echo "Baixando docker-compose ..." && \
 	sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose > /dev/null && \
 	echo "Adicionando permissões para docker-compose ..." && \
@@ -38,7 +38,9 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "npm install react-native-cli ..." && \
 	sudo npm install -g react-native-cli;
 
-
+	echo "pip install" && \
+	sudo pip install virtualenv virtualenvwrapper ipython ipdb && \
+	sudo pip install ipython ipdb/
 
 	echo "gsettings clock-show-date true ..." && \
 	# General interface settings

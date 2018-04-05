@@ -1,12 +1,17 @@
+echo "loading env ...";
 export EDITOR="nano";
 export GRAPH_EDITOR="subl";
-export WORKSPACE=$HOME/workspace;
-export DULCE=$WORKSPACE/agr-react-native;
+export WORKSPACE="$HOME/workspace";
+export DULCE="$WORKSPACE/dulce";
 export VIRTUALBOX='virtualbox virtualbox-ext-pack';
 export GIT_COMMENT='!';
 export CONFIGURADO=true;
 export JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64/';
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+export ANDROID_HOME=$HOME/Android/Sdk;
+export PATH=$PATH:$ANDROID_HOME/tools;
+export PATH=$PATH:$ANDROID_HOME/emulator;
+export PATH=$PATH:$ANDROID_HOME/platform-tools;
+export WORKON_HOME=$HOME/.virtualenvs;
+export PROJECT_HOME="$WORKSPACE/";
+source /usr/local/bin/virtualenvwrapper.sh;
+echo "env loaded ...";
