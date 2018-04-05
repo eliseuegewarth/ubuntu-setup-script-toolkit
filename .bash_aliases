@@ -1,6 +1,6 @@
 # system shortcuts
 # alias add_alias='python3 add_alias.py $*'
-
+echo "load_aliases ...";
 alias reload="reset && . ~/.bashrc";
 alias bashrc="$GRAPH_EDITOR ~/.bashrc";
 alias bash_aliases="$GRAPH_EDITOR ~/.bash_aliases";
@@ -27,10 +27,10 @@ alias rebase="git rebase --preserve-merges $*";
  
 # Virtualenv shortcuts
 alias sapl="workon sapl";
-alias sapl="cd $DULCE";
+alias dulce="cd $DULCE/";
+alias work="cd $WORKSPACE/";
 
 # PPC (C programming) shortcuts
 alias ppc="(ls | grep *.c) | xargs g++ -o prog -std=c++11 -O2 -Wall && ./prog < input.txt > output.txt && diff output.txt ans.txt";
 
-alias dulce="cd $WORKSPACE/dulce/";
-alias work="cd $WORKSPACE/";
+echo "aliases loaded ...";
