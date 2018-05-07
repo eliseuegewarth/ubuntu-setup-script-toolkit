@@ -14,4 +14,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools;
 export WORKON_HOME=$HOME/.virtualenvs;
 export PROJECT_HOME="$WORKSPACE/";
 source /usr/local/bin/virtualenvwrapper.sh;
+export ANDROID_HOME='/usr/local/android-sdk-linux'
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.1
 echo "env loaded ...";

@@ -16,6 +16,7 @@ alias flake8="flake8 --exclude='ipython_log.py*,migrations,templates' .";
  
 # Git shortcuts
 alias gitb="git branch -q $*";
+alias branch="git branch -q $*";
 alias gits="git status";
 alias gitsd="git status -v -v";
 alias gitd="git diff $*";
@@ -23,6 +24,8 @@ alias gita="git add $*";
 alias gitr="git reset $*";
 alias gitc="git checkout $*";
 alias gitcs="git commit -s";
+alias commit="git commit -s";
+alias gitcsm="git commit -sm";
 alias rebase="git rebase --preserve-merges $*";
  
 # Virtualenv shortcuts

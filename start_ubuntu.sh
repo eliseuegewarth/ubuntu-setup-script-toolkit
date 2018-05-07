@@ -32,7 +32,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "apt install ..." && \
 	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine python-pip python3-pip htop > /dev/null && \
 	echo "Baixando docker-compose ..." && \
-	sudo curl -L https://github.com/docker/compose/releases/download/1.20.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose > /dev/null && \
+	sudo curl -L https://github.com/docker/compose/releases/download/$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose > /dev/null && \
 	echo "Adicionando permissões para docker-compose ..." && \
 	sudo chmod +x /usr/local/bin/docker-compose && \
 	echo "npm install react-native-cli ..." && \
@@ -45,6 +45,12 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "gsettings clock-show-date true ..." && \
 	# General interface settings
 	gsettings set org.gnome.desktop.interface clock-show-date "true" > /dev/null && \
+
+	# 
+	echo "gsettings natural-scroll true ..." && \
+	gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true && \
+	echo "gsettings tap-to-click true ..." && \
+	gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true && \
 
 	echo "gsettings image background ..." && \
 	# image background

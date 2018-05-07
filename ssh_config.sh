@@ -7,7 +7,7 @@ if [ ! -f $HOME/.ssh/id_rsa ]; then
 	eval "$(ssh-agent -s)"
 	ssh-add ~/.ssh/id_rsa;
 	echo "Chave gerada e adicionada ao ssh-agent. Adicione a chave ao seu repositório."
-        cat ~/.ssh/id_rsa.pub;
 else
 	echo "Já existe uma chave SSH configurada."
 fi
+	cat ~/.ssh/id_rsa.pub;
