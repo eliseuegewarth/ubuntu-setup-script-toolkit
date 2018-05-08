@@ -30,7 +30,7 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "Checando repositório Docker CE ..." && \
 	sudo apt-cache policy docker-engine > /dev/null && \
 	echo "apt install ..." && \
-	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine python-pip python3-pip htop > /dev/null && \
+	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine python-pip htop > /dev/null && \
 	echo "Baixando docker-compose ..." && \
 	sudo curl -L https://github.com/docker/compose/releases/download/$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose > /dev/null && \
 	echo "Adicionando permissões para docker-compose ..." && \
@@ -38,52 +38,54 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "npm install react-native-cli ..." && \
 	sudo npm install -g react-native-cli;
 
-	echo "pip install" && \
-	sudo pip install virtualenv virtualenvwrapper ipython ipdb && \
-	sudo pip install ipython ipdb/
+	echo "pip install..." && \
+	sudo -H pip install virtualenv virtualenvwrapper ipython ipdb && \
+	sudo -H pip install --upgrade pip;
 
-	echo "gsettings clock-show-date true ..." && \
 	# General interface settings
-	gsettings set org.gnome.desktop.interface clock-show-date "true" > /dev/null && \
+	echo "gsettings clock-show-date true ..." && \
+	gsettings set org.gnome.desktop.interface clock-show-date "true" > /dev/null;
 
-	# 
+	# setting touchpad options
 	echo "gsettings natural-scroll true ..." && \
 	gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true && \
 	echo "gsettings tap-to-click true ..." && \
-	gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true && \
+	gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true;
 
-	echo "gsettings image background ..." && \
 	# image background
+	echo "gsettings image background ..." && \
 	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/background.jpg > /dev/null && \
 	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/ubuntu-gnome/background.jpg > /dev/null && \
-	gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null && \
+	gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null;
 
-	echo "gsettings icon-theme Shadow ..." && \
 	# Icon theme
-	sudo cd /usr/share/icons/ && git clone https://github.com/rudrab/Shadow.git --branch master --single-branch > /dev/null && \
-	gsettings set org.gnome.desktop.interface icon-theme "Shadow" > /dev/null && \
+	echo "gsettings icon-theme Shadow ..." && \
+	cd /tmp && rm -rf Shadow && \
+	git clone https://github.com/rudrab/Shadow.git --branch master --single-branch > /dev/null && \
+	sudo rm -rf /usr/share/icons/Shadow && \
+	sudo mv /tmp/Shadow /usr/share/icons/Shadow && \
+	gsettings set org.gnome.desktop.interface icon-theme "Shadow" > /dev/null;
 
-	echo "gsettings shell theme Flat-Remix-dark ..." && \
 	# Shell Theme
-	cd /tmp && rm -rf flat-remix-gnome-theme && \
+	echo "gsettings shell theme Flat-Remix-dark ..." && \
+	cd /tmp && rm -rf flat-remix-gnome && \
 	git clone https://github.com/daniruiz/flat-remix-gnome.git --branch master --single-branch && \
-	mkdir -p ~/.themes && cp -r /tmp/flat-remix-gnome/Flat-Remix* ~/.themes && \
-	gsettings set org.gnome.shell.extensions.user-theme name "Flat-Remix-dark" > /dev/null && \
+	mkdir -p ~/.themes && rm -rf ~/.themes/Flat-Remix* && \
+	cp -rf /tmp/flat-remix-gnome/Flat-Remix* ~/.themes && \
+	gsettings set org.gnome.shell.extensions.user-theme name "Flat-Remix-dark" > /dev/null;
 
-	echo "Adicionando bash_env em bashrc ..." && \
 	# General bash setup
-	echo $'\nif [ -f ~/.bash_env ]; then\n    . ~/.bash_env\nfi' >> ~/.bashrc > /dev/null && \
+	if [ -z "$(cat ~/.bashrc | grep bash_env)" ]; then
+		echo "Adicionando bash_env em bashrc ..." && \
+		echo -e "\nif [ -f ~/.bash_env ]; then\n    . ~/.bash_env\nfi" >> ~/.bashrc;
+	fi
 
 	echo "Criando links simbolicos bash_aliases e bash_env ..." && \
 	ln -sf ${REPO_PATH}/.bash_aliases ~/.bash_aliases > /dev/null && \
-	ln -sf ${REPO_PATH}/.bash_env ~/.bash_env > /dev/null && \
+	ln -sf ${REPO_PATH}/.bash_env ~/.bash_env > /dev/null;
 
-	echo "source bashrc ..." && \
-	. ~/.bashrc > /dev/null && \
-
-
-	echo "Criando ~/workspace se não existir ..." && \
 	# creating workspace
+	echo "Criando ~/workspace se não existir ..." && \
 	if [ ! -d $WORKSPACE ]; then
 	    echo "Configurando WORKSPACE para $WORKSPACE";
 		sudo mkdir $WORKSPACE > /dev/null && \
@@ -94,9 +96,8 @@ if [ -z "${CONFIGURADO}" ]; then
 	cd ${REPO_PATH} && source ${REPO_PATH}/git_start.sh  > /dev/null && \
 
 	echo "Finalizando configurações ..." && \
-	export CONFIGURADO=true > /dev/null && \
-	echo 'export CONFIGURADO=true;'  >> ~/.bash_env > /dev/null && \
-	reload > /dev/null;
+	export CONFIGURADO="true" > /dev/null && \
+	echo 'export CONFIGURADO="true";'  >> ~/.bash_env;
 else
 	echo "Tudo configurado!";
 fi
