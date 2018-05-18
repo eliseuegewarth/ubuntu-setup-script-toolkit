@@ -15,17 +15,25 @@ alias django-db-flush='python manage.py flush && python manage.py migrate'
 alias flake8="flake8 --exclude='ipython_log.py*,migrations,templates' .";
  
 # Git shortcuts
-alias gitb="git branch -q $*";
+alias add="git add $*";
+alias amend="git commit --amend";
 alias branch="git branch -q $*";
+alias gbranch="git branch -q $*";
+alias gadd="git add $*";
+alias gamend="git commit --amend";
+alias gcommit="git commit -s";
+alias gitb="git branch -q $*";
+alias gitcko="git checkout $*";
+alias gcheckout="git checkout $*";
+alias gitc="git commit -s";
+alias gitcs="git commit -s";
+alias gitcsm="git commit -sm";
+alias gitd="git diff $*";
+alias gitr="git reset $*";
 alias gits="git status";
 alias gitsd="git status -v -v";
-alias gitd="git diff $*";
-alias gita="git add $*";
-alias gitr="git reset $*";
-alias gitc="git checkout $*";
-alias gitcs="git commit -s";
-alias commit="git commit -s";
-alias gitcsm="git commit -sm";
+alias greset="git reset $*";
+alias grebase="git rebase --preserve-merges $*";
 alias rebase="git rebase --preserve-merges $*";
  
 # Virtualenv shortcuts
