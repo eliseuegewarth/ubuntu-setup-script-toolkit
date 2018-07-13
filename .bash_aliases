@@ -1,3 +1,4 @@
+#!/bin/bash
 # system shortcuts
 # alias add_alias='python3 add_alias.py $*'
 echo "load_aliases ...";

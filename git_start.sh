@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Config git user defaults
 REPO_PATH=$(git rev-parse --show-toplevel);

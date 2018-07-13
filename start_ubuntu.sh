@@ -1,13 +1,13 @@
 #!/bin/bash
+echo "apt install apt-transport-https curl ..." && \
+sudo apt-get -qq  -y install apt-transport-https curl > /dev/null
 if [ -z "${CONFIGURADO}" ]; then
 	echo "Iniciando configurações...";
 	export REPO_PATH=$(git rev-parse --show-toplevel);
 	cd ~/Downloads/;
 
 	# install nodejs 8, sublime text 3
-	echo "apt install apt-transport-https curl ..." && \
-	sudo apt-get -qq  -y install apt-transport-https curl > /dev/null && \
-	echo "Adicionando chave pública sublime-text ..." && \
+	(echo "Adicionando chave pública sublime-text ..." && \
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
 	echo "Adicionando sublime-text em sources.list ..." && \
 	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null && \
@@ -32,15 +32,28 @@ if [ -z "${CONFIGURADO}" ]; then
 	echo "apt install ..." && \
 	sudo apt-get -qq -y install nodejs build-essential google-chrome-stable sublime-text atom terminator docker-engine python-pip htop > /dev/null && \
 	echo "Baixando docker-compose ..." && \
-	sudo curl -L https://github.com/docker/compose/releases/download/$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose > /dev/null && \
+	DOCKER_COMPOSE_VERSION=$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')
+	DISTRO_ARC=$(uname -s)-$(uname -m)
+	sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
 	echo "Adicionando permissões para docker-compose ..." && \
 	sudo chmod +x /usr/local/bin/docker-compose && \
 	echo "npm install react-native-cli ..." && \
 	sudo npm install -g react-native-cli;
 
 	echo "pip install..." && \
-	sudo -H pip install virtualenv virtualenvwrapper ipython ipdb && \
-	sudo -H pip install --upgrade pip;
+	sudo -H pip install --upgrade pip && \
+	sudo -H pip install --upgrade setuptools && \
+	sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
+
+	# Install Package Control for Sublime Text 3
+	wget -O ~/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package https://packagecontrol.io/Package%20Control.sublime-package && \
+	cd ~/.config/sublime-text-3/Packages;
+	(git clone https://bitbucket.org/hmml/jsonlint.git --single-branch --branch master)&
+	(git clone https://github.com/djjcast/mirodark-st2 --single-branch --branch master)&
+	git clone https://github.com/ihodev/a-file-icon.git --single-branch --branch master && subl && sleep 3s && rm -rf a-file-icon/
+	(git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme.git Material\ Theme && \
+		git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme-appbar.git Material\ Theme\ -\ Appbar)&
+	)&
 
 	# General interface settings
 	echo "gsettings clock-show-date true ..." && \
@@ -57,6 +70,17 @@ if [ -z "${CONFIGURADO}" ]; then
 	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/background.jpg > /dev/null && \
 	sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/ubuntu-gnome/background.jpg > /dev/null && \
 	gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null;
+	gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null;
+
+	# setting default favorite launcher apps
+	gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop']"
+
+	# Enable alternatetab and user-theme extensions
+	gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-extensions.gcampax.github.com', 'alternate-tab@gnome-shell-extensions.gcampax.github.com']"
+
+	# Setting up Gnome workspaces default
+	gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+	gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
 	# Icon theme
 	echo "gsettings icon-theme Shadow ..." && \

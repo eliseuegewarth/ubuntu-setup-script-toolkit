@@ -3,7 +3,6 @@ export EDITOR="nano";
 export GRAPH_EDITOR="subl";
 export WORKSPACE="$HOME/workspace";
 export DULCE="$WORKSPACE/dulce";
-export VIRTUALBOX='virtualbox virtualbox-ext-pack';
 export GIT_COMMENT='!';
 export CONFIGURADO=true;
 export JAVA_HOME='/usr/lib/jvm/java-8-openjdk-amd64/';
