@@ -48,8 +48,10 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
 
     # Install Package Control for Sublime Text 3
+    mkdir -p ~/.config/sublime-text-3/Installed\ Packages/ && \
     cd ~/.config/sublime-text-3/Installed\ Packages/ && \
     wget https://packagecontrol.io/Package%20Control.sublime-package && \
+    mkdir -p ~/.config/sublime-text-3/Packages;
     cd ~/.config/sublime-text-3/Packages;
     git clone https://bitbucket.org/hmml/jsonlint.git --single-branch --branch master
     git clone https://github.com/djjcast/mirodark-st2 --single-branch --branch master
