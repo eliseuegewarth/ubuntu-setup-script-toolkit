@@ -1,3 +1,4 @@
-export GIT_USER_EMAIL='';
-export GIT_USER_NAME=''
-export PASSWORD='';
+# create a .secret_env file and put your credentials like this example file. It will be used to create ssh key
+export GIT_USER_EMAIL='email@mail.com';
+export GIT_USER_NAME='Your Name (git display name)';
+export PASSWORD='password';
