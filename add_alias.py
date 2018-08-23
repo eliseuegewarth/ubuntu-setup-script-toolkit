@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
  
 import sys, os
+
  
 def main(argv):
     # import ipdb; ipdb.set_trace()
     separate_alias=argv[0].split('=')
-    file = open("/home/eliseuegewarth/.bash_aliases", 'a')
+    file = open(".bash_aliases", 'a')
     alias = '{} {}="{}"'.format(
         "alias", separate_alias[0], separate_alias[1])
     print ('Are you sure you want to create the alias: "{}" ?(Y/n)'.format(alias))
@@ -15,7 +16,6 @@ def main(argv):
     if "Y" or "y" in answer:
         print(alias, file=file)
         print("RUN    . ${HOME}/.bash_aliases")
-        # os.system("${EDITOR} /home/eliseuegewarth/.bash_aliases")
  
 if __name__ == "__main__":
     if len(sys.argv) > 1:

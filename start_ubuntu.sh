@@ -1,29 +1,56 @@
 #!/bin/bash
 echo "apt install apt-transport-https curl ..." && \
 sudo apt-get -qq  -y install apt-transport-https curl > /dev/null
-EDITORS="sublime-text atom"
+
+if [ -z "${EDITORS}" ]; then
+    export EDITORS=""
+    export SUBLIME_TEXT="sublime-text"
+    export ATOM="atom"
+    echo "Install ${SUBLIME_TEXT}? [Y/n]"
+    read RESPONSE
+    if [ -z $RESPONSE ]; then
+        EDITORS="${EDITORS} ${SUBLIME_TEXT}"
+    fi
+    echo "Install ${ATOM}? [Y/n]"
+    RESPONSE=""
+    read RESPONSE
+    if [ -z $RESPONSE ]; then
+        EDITORS="${EDITORS} ${ATOM}"
+    fi
+fi
 SSH_TOOLS="openssh-server openssh-client"
 DOCKER_COMPOSE_VERSION=$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')
 DISTRO_ARC=$(uname -s)-$(uname -m)
 if [ -z "${CONFIGURADO}" ]; then
     echo "Iniciando configurações..." && \
     export REPO_PATH=$(git rev-parse --show-toplevel) && \
-    cd ~/Downloads/;
-    # install nodejs 8, sublime text 3
-    echo "Adicionando chave pública sublime-text ..." && \
-    wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
-    echo "Adicionando sublime-text em sources.list ..." && \
-    echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null && \
+    if [ -z "${REPO_PATH}" ]; then
+        REPO_PATH=$PWD;
+    fi && \
+    cd ~/Downloads/ && \
+    echo "Adicionando ppa do qbittorrent-stable..." && \
+    sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable && \
+    if [[ $EDITORS = *"${SUBLIME_TEXT}"* ]]; then
+        # install nodejs 8, sublime text 3
+        echo "Preparando sistema para instalação de ${SUBLIME_TEXT}..." && \
+        echo "Adicionando chave pública sublime-text ..." && \
+        wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
+        echo "Adicionando sublime-text em sources.list ..." && \
+        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+    fi && \
     echo "Adicionando chave pública google-chrome-stable ..." && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null && \
     echo "Adicionando google-chrome-stable em sources.list ..." && \
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null && \
     echo "Baixando script nodejs 8.x ..." && \
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - > /dev/null && \
-    echo "Adicionando chave pública Atom ..." && \
-    curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null && \
-    echo "Adicionando Atom em sources.list ..." && \
-    sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' > /dev/null && \
+    if [[ $EDITORS = *"${ATOM}"* ]]; then
+        echo "Preparando sistema para instalação de ${ATOM}..." && \
+        echo "Adicionando chave pública Atom ..." && \
+        curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null && \
+        echo "Adicionando Atom em sources.list ..." && \
+        sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' > /dev/null
+    fi && \
     echo "Adicionando chave pública Docker CE ..." && \
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null && \
     echo "Adicionando repositório Docker CE ..." && \
@@ -33,33 +60,37 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Checando repositório Docker CE ..." && \
     sudo apt-cache policy docker-engine > /dev/null && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator ${SSH_TOOLS} docker-engine python-pip htop > /dev/null && \
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} docker-engine python-pip htop > /dev/null && \
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
     sudo chmod +x /usr/local/bin/docker-compose && \
     echo "npm install react-native-cli ..." && \
     sudo npm install -g react-native-cli;
+    
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
     sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
 
-    # Install Package Control for Sublime Text 3
-    SUBLIME_CONFIG_PATH="~/.config/sublime-text-3"
-    mkdir -p {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
-    cd {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
-    wget https://packagecontrol.io/Package%20Control.sublime-package && \
-    mkdir -p {SUBLIME_CONFIG_PATH}/Packages && \
-    cd {SUBLIME_CONFIG_PATH}/Packages && \
-    git clone https://bitbucket.org/hmml/jsonlint.git --single-branch --branch master && \
-    git clone https://github.com/djjcast/mirodark-st2 --single-branch --branch master && \
-    git clone https://github.com/ihodev/a-file-icon.git --single-branch --branch master && subl && sleep 3s && rm -rf a-file-icon/ && \
-    git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme.git Material\ Theme && \
-    git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme-appbar.git Material\ Theme\ -\ Appbar && \
-    mkdir -p {SUBLIME_CONFIG_PATH}/Packages/User && \
-    cd {SUBLIME_CONFIG_PATH}/Packages && \
-    mv ${REPO_PATH}/Preferences.sublime-settings Preferences.sublime-settings
+    if [[ $EDITORS = *"${SUBLIME_TEXT}"* ]]; then
+        # Install Package Control for Sublime Text 3
+        SUBLIME_CONFIG_PATH="~/.config/sublime-text-3"
+        mkdir -p {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
+        cd {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
+        wget https://packagecontrol.io/Package%20Control.sublime-package && \
+        mkdir -p {SUBLIME_CONFIG_PATH}/Packages && \
+        cd {SUBLIME_CONFIG_PATH}/Packages && \
+        git clone https://bitbucket.org/hmml/jsonlint.git --single-branch --branch master && \
+        git clone https://github.com/djjcast/mirodark-st2 --single-branch --branch master && \
+        git clone https://github.com/ihodev/a-file-icon.git --single-branch --branch master && subl && sleep 3s && rm -rf a-file-icon/ && \
+        git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme.git Material\ Theme && \
+        git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme-appbar.git Material\ Theme\ -\ Appbar && \
+        mkdir -p {SUBLIME_CONFIG_PATH}/Packages/User && \
+        cd {SUBLIME_CONFIG_PATH}/Packages && \
+        mv ${REPO_PATH}/Preferences.sublime-settings Preferences.sublime-settings
+        cd ${REPO_PATH}
+    fi
 
     # General interface settings
     echo "gsettings clock-show-date true ..." && \
