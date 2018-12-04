@@ -6,17 +6,18 @@ if [ -z "${EDITORS}" ]; then
     export EDITORS=""
     export SUBLIME_TEXT="sublime-text"
     export ATOM="atom"
-    echo "Install ${SUBLIME_TEXT}? [Y/n]"
-    read RESPONSE
-    if [ -z $RESPONSE ]; then
-        EDITORS="${EDITORS} ${SUBLIME_TEXT}"
-    fi
-    echo "Install ${ATOM}? [Y/n]"
-    RESPONSE=""
-    read RESPONSE
-    if [ -z $RESPONSE ]; then
-        EDITORS="${EDITORS} ${ATOM}"
-    fi
+	EDITORS="${EDITORS} ${SUBLIME_TEXT}"
+	echo "Preparando sistema para instalação de ${SUBLIME_TEXT}..." && \
+	echo "Adicionando chave pública sublime-text ..." && \
+	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
+	echo "Adicionando sublime-text em sources.list ..." && \
+	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
+    EDITORS="${EDITORS} ${ATOM}"
+	echo "Preparando sistema para instalação de ${ATOM}..." && \
+    echo "Adicionando chave pública Atom ..." && \
+    curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null && \
+    echo "Adicionando Atom em sources.list ..." && \
+    sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' > /dev/null
 fi
 SSH_TOOLS="openssh-server openssh-client"
 DOCKER_COMPOSE_VERSION=$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')
@@ -29,28 +30,13 @@ if [ -z "${CONFIGURADO}" ]; then
     fi && \
     cd ~/Downloads/ && \
     echo "Adicionando ppa do qbittorrent-stable..." && \
-    sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable && \
-    if [[ $EDITORS = *"${SUBLIME_TEXT}"* ]]; then
-        # install nodejs 8, sublime text 3
-        echo "Preparando sistema para instalação de ${SUBLIME_TEXT}..." && \
-        echo "Adicionando chave pública sublime-text ..." && \
-        wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
-        echo "Adicionando sublime-text em sources.list ..." && \
-        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
-    fi && \
+    sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
     echo "Adicionando chave pública google-chrome-stable ..." && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null && \
     echo "Adicionando google-chrome-stable em sources.list ..." && \
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null && \
     echo "Baixando script nodejs 8.x ..." && \
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - > /dev/null && \
-    if [[ $EDITORS = *"${ATOM}"* ]]; then
-        echo "Preparando sistema para instalação de ${ATOM}..." && \
-        echo "Adicionando chave pública Atom ..." && \
-        curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null && \
-        echo "Adicionando Atom em sources.list ..." && \
-        sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' > /dev/null
-    fi && \
     echo "Adicionando chave pública Docker CE ..." && \
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null && \
     echo "Adicionando repositório Docker CE ..." && \
@@ -102,10 +88,10 @@ if [ -z "${CONFIGURADO}" ]; then
     gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true;
     # image background
     echo "gsettings image background ..." && \
-    sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/background.jpg > /dev/null && \
-    sudo cp ${REPO_PATH}/img/background.jpg /usr/share/backgrounds/ubuntu-gnome/background.jpg > /dev/null && \
-    gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null && \
-    gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/background.jpg' > /dev/null;
+    sudo cp ${REPO_PATH}/img/background.png /usr/share/backgrounds/background.png > /dev/null && \
+    sudo cp ${REPO_PATH}/img/background.png /usr/share/backgrounds/ubuntu-gnome/background.png > /dev/null && \
+    gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null && \
+    gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null;
     # setting default favorite launcher apps
     gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop']"
 

@@ -10,7 +10,7 @@ Bash Utils to configure your system quickly.
 - Configure Gnome interface:
     - icons
     - theme
-    - background image (__you can replace file img/background.jpg by your choice__)
+    - background image (__you can replace file img/background.png by your choice__)
 - Configure some sublime text preferences (if installed)
 
 ### The `ssh_config.sh` configure ssh_key. It use credentials you write in file `.secret_env`. Follow `env_example` instructions.
