@@ -89,9 +89,11 @@ if [ -z "${CONFIGURADO}" ]; then
     # image background
     echo "gsettings image background ..." && \
     sudo cp ${REPO_PATH}/img/background.png /usr/share/backgrounds/background.png > /dev/null && \
+    sudo cp ${REPO_PATH}/img/lockscreen.png /usr/share/backgrounds/lockscreen.png > /dev/null && \
+    sudo cp ${REPO_PATH}/img/grub_background.png /usr/share/backgrounds/grub_background.png > /dev/null && \
     sudo cp ${REPO_PATH}/img/background.png /usr/share/backgrounds/ubuntu-gnome/background.png > /dev/null && \
     gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null && \
-    gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null;
+    gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/lockscreen.png' > /dev/null;
     # setting default favorite launcher apps
     gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop']"
 
