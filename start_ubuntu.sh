@@ -30,7 +30,7 @@ if [ -z "${CONFIGURADO}" ]; then
     fi && \
     cd ~/Downloads/ && \
     echo "Adicionando ppa do qbittorrent-stable..." && \
-    sudo apt-add-repository --force-yes ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
+    sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
     echo "Adicionando chave pública google-chrome-stable ..." && \
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null && \
     echo "Adicionando google-chrome-stable em sources.list ..." && \
@@ -40,7 +40,7 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Adicionando chave pública Docker CE ..." && \
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null && \
     echo "Adicionando repositório Docker CE ..." && \
-    sudo apt-add-repository --force-yes 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' > /dev/null && \
+    sudo apt-add-repository -y 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' > /dev/null && \
     echo "apt update ..." && \
     sudo apt-get -qq update > /dev/null && \
     echo "Checando repositório Docker CE ..." && \
@@ -52,8 +52,7 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Adicionando permissões para docker-compose ..." && \
     sudo chmod +x /usr/local/bin/docker-compose && \
     echo "npm install react-native-cli ..." && \
-    sudo npm install -g react-native-cli;
-    
+    sudo npm install -g react-native-cli && \
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
@@ -122,12 +121,14 @@ if [ -z "${CONFIGURADO}" ]; then
     # Cursor Theme
     echo "gsettings shell theme 'Bibata Cursor'..." && \
     cd /tmp && rm -rf Bibata_Cursor && \
+    sudo apt install -y inkscape && \
     git clone https://github.com/eliseuegewarth/Bibata_Cursor.git && \
     cd Bibata_Cursor/ && \
     chmod +x build.sh && \
     ./build.sh && \
     chmod +x ./Installer_Bibata.sh && \
-    ./Installer_Bibata.sh
+    ./Installer_Bibata.sh && \
+    gsettings set org.gnome.desktop.interface cursor-theme 'Bibata_Oil'
 
     # General bash setup
     if [ -z "$(cat ~/.bashrc | grep bash_env)" ]; then
