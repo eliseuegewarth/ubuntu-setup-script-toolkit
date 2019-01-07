@@ -46,6 +46,8 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo apt-get -qq update > /dev/null && \
     echo "Checando repositório Docker CE ..." && \
     sudo apt-cache policy docker-engine > /dev/null && \
+    echo "Add graphics-drivers/ppa..." && \
+    sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
     echo "apt install ..." && \
     sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} > /dev/null && \
     echo "Baixando docker-compose ..." && \
