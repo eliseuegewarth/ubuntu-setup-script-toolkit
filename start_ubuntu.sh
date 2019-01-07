@@ -46,7 +46,7 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Checando repositório Docker CE ..." && \
     sudo apt-cache policy docker-engine > /dev/null && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} docker-engine python-pip htop > /dev/null && \
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} docker-engine python-pip htop ${FILE_MANAGER} > /dev/null && \
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
@@ -57,6 +57,10 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
     sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
+
+    FILE_MANAGER="nemo" && \
+    sudo apt install FILE_MANAGER && \
+    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
 
     if [[ $EDITORS = *"${SUBLIME_TEXT}"* ]]; then
         # Install Package Control for Sublime Text 3
