@@ -28,7 +28,8 @@ if [ -z "${CONFIGURADO}" ]; then
     if [ -z "${REPO_PATH}" ]; then
         REPO_PATH=$PWD;
     fi && \
-    cd ~/Downloads/ && \
+    FILE_MANAGER="nemo" && \
+    cd ${HOME}/Downloads/ && \
     echo "Adicionando ppa do qbittorrent-stable..." && \
     sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
     echo "Adicionando chave pública google-chrome-stable ..." && \
@@ -46,7 +47,7 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Checando repositório Docker CE ..." && \
     sudo apt-cache policy docker-engine > /dev/null && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} docker-engine python-pip htop ${FILE_MANAGER} > /dev/null && \
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} > /dev/null && \
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
@@ -58,25 +59,23 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo -H pip install --upgrade setuptools && \
     sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
 
-    FILE_MANAGER="nemo" && \
-    sudo apt install FILE_MANAGER && \
-    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+    # Setting nemo as default file manager
+    xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search;
 
     if [[ $EDITORS = *"${SUBLIME_TEXT}"* ]]; then
         # Install Package Control for Sublime Text 3
-        SUBLIME_CONFIG_PATH="~/.config/sublime-text-3"
-        mkdir -p {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
-        cd {SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
+        SUBLIME_CONFIG_PATH="${HOME}/.config/sublime-text-3"
+        mkdir -p ${SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
+        cd ${SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
         wget https://packagecontrol.io/Package%20Control.sublime-package && \
-        mkdir -p {SUBLIME_CONFIG_PATH}/Packages && \
-        cd {SUBLIME_CONFIG_PATH}/Packages && \
+        mkdir -p ${SUBLIME_CONFIG_PATH}/Packages && \
+        cd ${SUBLIME_CONFIG_PATH}/Packages && \
         git clone https://bitbucket.org/hmml/jsonlint.git --single-branch --branch master && \
         git clone https://github.com/djjcast/mirodark-st2 --single-branch --branch master && \
-        git clone https://github.com/ihodev/a-file-icon.git --single-branch --branch master && subl && sleep 3s && rm -rf a-file-icon/ && \
         git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme.git Material\ Theme && \
         git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme-appbar.git Material\ Theme\ -\ Appbar && \
-        mkdir -p {SUBLIME_CONFIG_PATH}/Packages/User && \
-        cd {SUBLIME_CONFIG_PATH}/Packages && \
+        mkdir -p ${SUBLIME_CONFIG_PATH}/Packages/User && \
+        cd ${SUBLIME_CONFIG_PATH}/Packages && \
         mv ${REPO_PATH}/Preferences.sublime-settings Preferences.sublime-settings
         cd ${REPO_PATH}
     fi
@@ -98,7 +97,7 @@ if [ -z "${CONFIGURADO}" ]; then
     gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null && \
     gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/lockscreen.png' > /dev/null;
     # setting default favorite launcher apps
-    gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop']"
+    gsettings set org.gnome.shell favorite-apps "['nemo.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop', 'terminator.desktop']"
 
     # Enable alternatetab and user-theme extensions
     gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-extensions.gcampax.github.com', 'alternate-tab@gnome-shell-extensions.gcampax.github.com']"
@@ -111,15 +110,15 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "gsettings icon-theme 'Flat-Remix-Dark'..." && \
     cd /tmp && rm -rf flat-remix && \
     git clone https://github.com/eliseuegewarth/flat-remix && \
-    mkdir -p ~/.icons && cp -r flat-remix/Flat-Remix* ~/.icons/ && \
+    mkdir -p ${HOME}/.icons && cp -r flat-remix/Flat-Remix* ${HOME}/.icons/ && \
     gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Dark" > /dev/null;
 
     # Shell Theme
     echo "gsettings shell theme 'Flat-Remix-Darkest'..." && \
     cd /tmp && rm -rf flat-remix-gnome && \
     git clone https://github.com/eliseuegewarth/flat-remix-gnome.git --branch master --single-branch && \
-    mkdir -p ~/.themes && rm -rf ~/.themes/Flat-Remix* && \
-    cp -rf /tmp/flat-remix-gnome/Flat-Remix* ~/.themes && \
+    mkdir -p ${HOME}/.themes && rm -rf ${HOME}/.themes/Flat-Remix* && \
+    cp -rf /tmp/flat-remix-gnome/Flat-Remix* ${HOME}/.themes && \
     gsettings set org.gnome.shell.extensions.user-theme name "Flat-Remix-Darkest" > /dev/null;
 
     # Cursor Theme
@@ -135,17 +134,17 @@ if [ -z "${CONFIGURADO}" ]; then
     gsettings set org.gnome.desktop.interface cursor-theme 'Bibata_Oil'
 
     # General bash setup
-    if [ -z "$(cat ~/.bashrc | grep bash_env)" ]; then
+    if [ -z "$(cat ${HOME}/.bashrc | grep bash_env)" ]; then
         echo "Adicionando bash_env em bashrc ..." && \
-        echo -e "\nif [ -f ~/.bash_env ]; then\n    . ~/.bash_env\nfi" >> ~/.bashrc;
+        echo -e "\nif [ -f ${HOME}/.bash_env ]; then\n    . ${HOME}/.bash_env\nfi" >> ${HOME}/.bashrc;
     fi
 
     echo "Criando links simbolicos bash_aliases e bash_env ..." && \
-    ln -sf ${REPO_PATH}/.bash_aliases ~/.bash_aliases > /dev/null && \
-    ln -sf ${REPO_PATH}/.bash_env ~/.bash_env > /dev/null;
+    ln -sf ${REPO_PATH}/.bash_aliases ${HOME}/.bash_aliases > /dev/null && \
+    ln -sf ${REPO_PATH}/.bash_env ${HOME}/.bash_env > /dev/null;
 
     # creating workspace
-    echo "Criando ~/workspace se não existir ..." && \
+    echo "Criando ${HOME}/workspace se não existir ..." && \
     if [ ! -d $WORKSPACE ]; then
         echo "Configurando WORKSPACE para $WORKSPACE";
         sudo mkdir $WORKSPACE > /dev/null && \
@@ -156,7 +155,7 @@ if [ -z "${CONFIGURADO}" ]; then
     cd ${WORKSPACE} && source ${REPO_PATH}/git_start.sh  > /dev/null;
     echo "Finalizando configurações ..." && \
     export CONFIGURADO="true" > /dev/null && \
-    echo 'export CONFIGURADO="true";'  >> ~/.bash_env;
+    echo 'export CONFIGURADO="true";'  >> ${HOME}/.bash_env;
 else
     echo "Tudo configurado!";
 fi
