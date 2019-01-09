@@ -78,7 +78,7 @@ if [ -z "${CONFIGURADO}" ]; then
         git clone --single-branch --branch master https://github.com/eliseuegewarth/material-theme-appbar.git Material\ Theme\ -\ Appbar && \
         mkdir -p ${SUBLIME_CONFIG_PATH}/Packages/User && \
         cd ${SUBLIME_CONFIG_PATH}/Packages && \
-        mv ${REPO_PATH}/Preferences.sublime-settings Preferences.sublime-settings
+        cp ${REPO_PATH}/Preferences.sublime-settings Preferences.sublime-settings
         cd ${REPO_PATH}
     fi
 
