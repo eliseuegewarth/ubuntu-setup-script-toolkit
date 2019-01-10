@@ -36,11 +36,6 @@ alias gitsd="git status -v -v";
 alias greset="git reset $*";
 alias grebase="git rebase --preserve-merges $*";
 alias rebase="git rebase --preserve-merges $*";
- 
-# Virtualenv shortcuts
-alias sapl="workon sapl";
-alias dulce="cd $DULCE/";
-alias work="cd $WORKSPACE/";
 
 # PPC (C programming) shortcuts
 alias ppc="(ls | grep *.c) | xargs g++ -o prog -std=c++11 -O2 -Wall && ./prog < input.txt > output.txt && diff output.txt ans.txt";
