@@ -82,6 +82,9 @@ if [ -z "${CONFIGURADO}" ]; then
         cd ${REPO_PATH}
     fi
 
+    # Default terminator settings
+    cp terminator_config ${HOME}/.config/terminator/config
+
     # General interface settings
     echo "gsettings clock-show-date true ..." && \
     gsettings set org.gnome.desktop.interface clock-show-date "true" > /dev/null;
