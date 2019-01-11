@@ -54,6 +54,8 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
     sudo chmod +x /usr/local/bin/docker-compose && \
+    echo "snap install wps-office..." && \
+    sudo snap install wps-office && \
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
