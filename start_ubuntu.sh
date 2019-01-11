@@ -56,6 +56,8 @@ if [ -z "${CONFIGURADO}" ]; then
     sudo chmod +x /usr/local/bin/docker-compose && \
     echo "snap install wps-office..." && \
     sudo snap install wps-office && \
+    echo "snap install spotify..." && \
+    sudo snap install spotify && \
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
