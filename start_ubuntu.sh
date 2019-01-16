@@ -38,6 +38,10 @@ if [ -z "${CONFIGURADO}" ]; then
     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null && \
     echo "Baixando script nodejs 8.x ..." && \
     curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - > /dev/null && \
+    echo "Adicionando chave pública Spotify ..." && \
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && \
+    echo "Adicionando repositório Spotify ..." && \
+    echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
     echo "Adicionando chave pública Docker CE ..." && \
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null && \
     echo "Adicionando repositório Docker CE ..." && \
@@ -49,15 +53,13 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Add graphics-drivers/ppa..." && \
     sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} > /dev/null && \
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client > /dev/null && \
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
     sudo chmod +x /usr/local/bin/docker-compose && \
     echo "snap install wps-office..." && \
     sudo snap install wps-office && \
-    echo "snap install spotify..." && \
-    sudo snap install spotify && \
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
