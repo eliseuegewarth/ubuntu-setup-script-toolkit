@@ -85,6 +85,7 @@ if [ -z "${CONFIGURADO}" ]; then
     fi
 
     # Default terminator settings
+    mkdir -p ${HOME}/.config/terminator && \
     cp terminator_config ${HOME}/.config/terminator/config
 
     # General interface settings
