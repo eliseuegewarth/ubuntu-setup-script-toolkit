@@ -53,13 +53,20 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Add graphics-drivers/ppa..." && \
     sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client > /dev/null && \
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client > /dev/null;
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
-    sudo chmod +x /usr/local/bin/docker-compose && \
-    echo "snap install wps-office..." && \
-    sudo snap install wps-office && \
+    sudo chmod +x /usr/local/bin/docker-compose;
+    echo "Install wps-office..." && \
+    cd /tmp/ && \
+    echo "Downloading wps-office.deb ..." && \
+    wget http://kdl.cc.ksosoft.com/wps-community/download/6757/wps-office_10.1.0.6757_amd64.deb -O wps-office.deb && \
+    echo "Downloading wps-office-fonts.deb ..." && \
+    wget http://kdl.cc.ksosoft.com/wps-community/download/fonts/wps-office-fonts_1.0_all.deb -O web-office-fonts.deb && \
+    echo "Dpkg install wps-office..." && \
+    sudo dpkg -i wps-office*.deb &&\
+    cd ${REPO_PATH};
     echo "pip install..." && \
     sudo -H pip install --upgrade pip && \
     sudo -H pip install --upgrade setuptools && \
