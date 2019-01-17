@@ -30,6 +30,8 @@ if [ -z "${CONFIGURADO}" ]; then
     fi && \
     FILE_MANAGER="nemo" && \
     cd ${HOME}/Downloads/ && \
+    echo "Adicionando ppa do libreoffice..." && \
+    sudo add-apt-repository -y ppa:libreoffice/ppa > /dev/null && \
     echo "Adicionando ppa do qbittorrent-stable..." && \
     sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
     echo "Adicionando chave pública google-chrome-stable ..." && \
@@ -53,7 +55,7 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Add graphics-drivers/ppa..." && \
     sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client > /dev/null;
+    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client libreoffice > /dev/null;
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
