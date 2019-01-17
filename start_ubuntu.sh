@@ -114,7 +114,7 @@ if [ -z "${CONFIGURADO}" ]; then
     gsettings set org.gnome.desktop.background picture-uri 'file:///usr/share/backgrounds/background.png' > /dev/null && \
     gsettings set org.gnome.desktop.screensaver picture-uri 'file:///usr/share/backgrounds/lockscreen.png' > /dev/null;
     # setting default favorite launcher apps
-    gsettings set org.gnome.shell favorite-apps "['nemo.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop', 'terminator.desktop']"
+    gsettings set org.gnome.shell favorite-apps "['nemo.desktop', 'google-chrome.desktop', 'firefox.desktop', 'sublime_text.desktop', 'terminator.desktop', 'spotify.desktop']"
 
     # Enable alternatetab and user-theme extensions
     gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-extensions.gcampax.github.com', 'alternate-tab@gnome-shell-extensions.gcampax.github.com']"
