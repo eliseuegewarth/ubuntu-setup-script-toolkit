@@ -55,7 +55,9 @@ if [ -z "${CONFIGURADO}" ]; then
     echo "Add graphics-drivers/ppa..." && \
     sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
     echo "apt install ..." && \
-    sudo apt-get -qq -y install nodejs build-essential google-chrome-stable ${EDITORS} terminator qbittorrent ${SSH_TOOLS} vlc docker-engine python-pip htop ${FILE_MANAGER} spotify-client libreoffice > /dev/null;
+    sudo apt-get -qq -y install nodejs build-essential ${EDITORS} terminator ${SSH_TOOLS} docker-engine python-pip htop > /dev/null && \
+    sudo apt-get -qq -y install google-chrome-stable qbittorrent ${FILE_MANAGER} spotify-client libreoffice vlc vlc-data browser-plugin-vlc mplayer2 > /dev/null
+    sudo apt -qq -y autoremove;
     echo "Baixando docker-compose ..." && \
     sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
     echo "Adicionando permissões para docker-compose ..." && \
