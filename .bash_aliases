@@ -40,4 +40,7 @@ alias rebase="git rebase --preserve-merges $*";
 # PPC (C programming) shortcuts
 alias ppc="(ls | grep *.c) | xargs g++ -o prog -std=c++11 -O2 -Wall && ./prog < input.txt > output.txt && diff output.txt ans.txt";
 
+# SBD1
+alias brmodelo="/opt/brmodelo/brmodelo.sh"
+
 echo "aliases loaded ...";
