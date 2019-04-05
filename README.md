@@ -1,4 +1,4 @@
-# Ubuntu Gnome 16.04 Bash Utils util 
+# Ubuntu Gnome 16.04 Setup
 Bash Utils to configure your system quickly.
 
 ### The `start_ubuntu.sh` do things like:
