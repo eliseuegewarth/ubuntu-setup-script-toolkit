@@ -1,6 +1,14 @@
 # Ubuntu Gnome 16.04 Setup
 Bash Utils to configure your system quickly.
 
+### How-To:
+[SUDO REQUIRED]
+```
+git clone https://github.com/eliseuegewarth/ubuntu-gnome-16-04-setup.git ~/.magic_setup && \
+cd ~/.magic_setup && \
+source start_ubuntu.sh
+```
+
 ### The `start_ubuntu.sh` do things like:
 
 - install some text editors (atom and sublime text for now)
