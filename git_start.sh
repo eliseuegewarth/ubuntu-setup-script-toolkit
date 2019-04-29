@@ -7,7 +7,10 @@ if [ -f ${REPO_PATH}/.secret_env ]; then
 	git config --global core.commentChar $GIT_COMMENT;
 	git config --global user.email $GIT_USER_EMAIL;
 	git config --global user.name "${GIT_USER_NAME}";
+	echo "https://${GIT_USERNAME}:${GIT_USER_PASSWORD}@github.com" > ${HOME}/.git-credentials
 	git config --global credential.helper store
+	source ${REPO_PATH}/ssh_config.sh
+	rm ${REPO_PATH}/.secret_env
 fi
 if [ -z ${WORKSPACE} ]; then
 	echo "setting workspace to ${PWD}"
@@ -44,7 +47,6 @@ if [ ! -z "$(env | grep REPOSITORY_ )" ]; then
 			fi
 		fi
 		cd ${CURRENT_REPOSITORY} && \
-		git config credential.helper store
 		git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 		cd ${WORKSPACE}
 	done
