@@ -29,12 +29,13 @@ gsettings set org.gnome.shell enabled-extensions "['user-theme@gnome-shell-exten
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
 gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
+# GTK theme
+echo "gsettings gtk-theme 'Flat-Remix-GTK'..." && \
+curl -s https://github.com/eliseuegewarth/flat-remix-gtk/blob/master/install.sh | bash
+
 # Icon theme
 echo "gsettings icon-theme 'Flat-Remix-Dark'..." && \
-cd /tmp && rm -rf flat-remix && \
-git clone https://github.com/eliseuegewarth/flat-remix && \
-mkdir -p ${HOME}/.icons && cp -r flat-remix/Flat-Remix* ${HOME}/.icons/ && \
-gsettings set org.gnome.desktop.interface icon-theme "Flat-Remix-Dark" > /dev/null;
+curl -s https://github.com/eliseuegewarth/flat-remix/blob/master/install.sh | bash
 
 # Shell Theme
 echo "gsettings shell theme 'Flat-Remix-Darkest'..." && \
