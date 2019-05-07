@@ -31,11 +31,11 @@ gsettings set org.gnome.shell.overrides dynamic-workspaces false
 
 # GTK theme
 echo "gsettings gtk-theme 'Flat-Remix-GTK'..." && \
-curl -s https://github.com/eliseuegewarth/flat-remix-gtk/blob/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/eliseuegewarth/flat-remix-gtk/master/install.sh | bash
 
 # Icon theme
 echo "gsettings icon-theme 'Flat-Remix-Dark'..." && \
-curl -s https://github.com/eliseuegewarth/flat-remix/blob/master/install.sh | bash
+curl -s https://raw.githubusercontent.com/eliseuegewarth/flat-remix/master/install.sh | bash
 
 # Shell Theme
 echo "gsettings shell theme 'Flat-Remix-Darkest'..." && \
