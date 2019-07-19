@@ -11,15 +11,15 @@ show_modes(){
     done
 }
 
-show_mode_basic{
+show_mode_basic(){
     echo "    basic "
 }
 
-show_mode_full{
+show_mode_full(){
     echo "    full "
 }
 
-show_mode_select_packages{
+show_mode_select_packages(){
     echo "    select_packages "
 }
 
