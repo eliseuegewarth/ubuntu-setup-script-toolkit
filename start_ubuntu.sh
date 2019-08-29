@@ -1,9 +1,11 @@
 #!/bin/bash
-
+MODES=""
 BASIC_INSTALL_MODE="--basic"
+MODES="$MODES $BASIC_INSTALL_MODE"
 FULL_INSTALL_MODE="--full"
-SELECTED_INSTALL_MODE="--select-packages --exit"
-MODES=($(env | grep "_INSTALL_MODE" | cut -f 2 -d '='))
+MODES="$MODES $FULL_INSTALL_MODE"
+SELECTED_INSTALL_MODE="--select-packages"
+MODES="$MODES $SELECTED_INSTALL_MODE"
 
 show_modes(){
     for i in $MODES; do
@@ -12,15 +14,15 @@ show_modes(){
 }
 
 show_mode_basic(){
-    echo "    basic "
+    echo "    --basic"
 }
 
 show_mode_full(){
-    echo "    full "
+    echo "    --full"
 }
 
 show_mode_select_packages(){
-    echo "    select_packages "
+    echo "    --select_packages"
 }
 
 show_mode(){
@@ -106,19 +108,7 @@ elif [[ $1 = *"--full"* ]]; then
         sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
         echo "Adicionando permissões para docker-compose ..." && \
         sudo chmod +x /usr/local/bin/docker-compose;
-        echo "Install wps-office..." && \
-        cd /tmp/ && \
-        echo "Downloading wps-office.deb ..." && \
-        wget http://kdl.cc.ksosoft.com/wps-community/download/6757/wps-office_10.1.0.6757_amd64.deb -O wps-office.deb && \
-        echo "Downloading wps-office-fonts.deb ..." && \
-        wget http://kdl.cc.ksosoft.com/wps-community/download/fonts/wps-office-fonts_1.0_all.deb -O web-office-fonts.deb && \
-        echo "Dpkg install wps-office..." && \
-        sudo dpkg -i wps-office*.deb &&\
-        cd ${REPO_PATH};
-        echo "pip install..." && \
-        sudo -H pip install --upgrade pip && \
-        sudo -H pip install --upgrade setuptools && \
-        sudo -H pip install virtualenv virtualenvwrapper ipython ipdb;
+        ${REPO_PATH}/install_pip_packages.sh
 
         # Setting nemo as default file manager
         xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search;
