@@ -1,0 +1,2 @@
+#!/bin/bash
+subl ${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}
