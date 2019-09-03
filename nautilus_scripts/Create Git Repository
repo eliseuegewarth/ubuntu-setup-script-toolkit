@@ -1,0 +1,3 @@
+#!/bin/bash
+new_project_name=$(zenity --entry --title="Add new Git project" --text="Enter name of new project:" --entry-text="project")
+mkdir -p "${new_project_name}" && cd ${new_project_name} && git init;

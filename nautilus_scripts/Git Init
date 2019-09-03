@@ -1,0 +1,12 @@
+#!/bin/bash
+NAUTILUS_SCRIPT_SELECTED_FILE_PATHS="$(echo "$NAUTILUS_SCRIPT_SELECTED_FILE_PATHS" | cut -d$'\n' -f1)"
+if [ -d "${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}" ]; then
+	cd ${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS}
+else
+	echo "There is no directory...";
+fi
+if [[ -d "${PWD}/.git/" ]]; then
+	exit 0;
+else
+	git init;
+fi
