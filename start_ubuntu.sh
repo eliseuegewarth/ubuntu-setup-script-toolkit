@@ -48,15 +48,6 @@ if [[ $1 = *"--basic"* ]]; then
     echo "Basic config not exist..."
     exit
 elif [[ $1 = *"--full"* ]]; then
-    if [ -z "${EDITORS}" ]; then
-        export ATOM="atom"
-        EDITORS="${EDITORS} ${ATOM}"
-        echo "Preparando sistema para instalação de ${ATOM}..." && \
-        echo "Adicionando chave pública Atom ..." && \
-        curl -L https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add - > /dev/null && \
-        echo "Adicionando Atom em sources.list ..." && \
-        sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list' > /dev/null
-    fi
     SSH_TOOLS="openssh-server openssh-client"
     DOCKER_COMPOSE_VERSION=$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')
     DISTRO_ARC=$(uname -s)-$(uname -m)
@@ -67,6 +58,7 @@ elif [[ $1 = *"--full"* ]]; then
             REPO_PATH=$PWD;
         fi && \
         ${REPO_PATH}/sublime_text/pre_install.sh
+        ${REPO_PATH}/atom/pre_install.sh
         FILE_MANAGER="nemo" && \
         cd ${HOME}/Downloads/ && \
         echo "Adicionando ppa do libreoffice..." && \
