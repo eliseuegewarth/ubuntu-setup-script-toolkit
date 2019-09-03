@@ -49,15 +49,7 @@ if [[ $1 = *"--basic"* ]]; then
     exit
 elif [[ $1 = *"--full"* ]]; then
     if [ -z "${EDITORS}" ]; then
-        export EDITORS=""
-        export SUBLIME_TEXT="sublime-text"
         export ATOM="atom"
-        EDITORS="${EDITORS} ${SUBLIME_TEXT}"
-        echo "Preparando sistema para instalação de ${SUBLIME_TEXT}..." && \
-        echo "Adicionando chave pública sublime-text ..." && \
-        wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add - > /dev/null && \
-        echo "Adicionando sublime-text em sources.list ..." && \
-        echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list > /dev/null
         EDITORS="${EDITORS} ${ATOM}"
         echo "Preparando sistema para instalação de ${ATOM}..." && \
         echo "Adicionando chave pública Atom ..." && \
@@ -74,6 +66,7 @@ elif [[ $1 = *"--full"* ]]; then
         if [ -z "${REPO_PATH}" ]; then
             REPO_PATH=$PWD;
         fi && \
+        ${REPO_PATH}/sublime_text/pre_install.sh
         FILE_MANAGER="nemo" && \
         cd ${HOME}/Downloads/ && \
         echo "Adicionando ppa do libreoffice..." && \
