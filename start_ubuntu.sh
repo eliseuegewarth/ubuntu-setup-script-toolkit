@@ -89,10 +89,6 @@ elif [[ $1 = *"--full"* ]]; then
         sudo apt-get -qq -y install google-chrome-stable qbittorrent spotify-client vlc vlc-data browser-plugin-vlc > /dev/null
         sudo apt-get -qq -y install atom sublime_text > /dev/null && \
         sudo apt -qq -y autoremove;
-        echo "Baixando docker-compose ..." && \
-        sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
-        echo "Adicionando permissões para docker-compose ..." && \
-        sudo chmod +x /usr/local/bin/docker-compose;
         ${REPO_PATH}/install_pip_packages.sh
 
         # Sublime post
