@@ -60,33 +60,17 @@ elif [[ $1 = *"--full"* ]]; then
         ${REPO_PATH}/sublime_text/pre_install.sh
         ${REPO_PATH}/atom/pre_install.sh
         cd ${HOME}/Downloads/ && \
-        echo "Adicionando ppa do libreoffice..." && \
-        sudo add-apt-repository -y ppa:libreoffice/ppa > /dev/null && \
-        echo "Adicionando ppa do qbittorrent-stable..." && \
-        sudo add-apt-repository -y ppa:qbittorrent-team/qbittorrent-stable > /dev/null && \
         echo "Adicionando chave pública google-chrome-stable ..." && \
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - > /dev/null && \
         echo "Adicionando google-chrome-stable em sources.list ..." && \
         echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null && \
         echo "Baixando script nodejs 8.x ..." && \
         curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - > /dev/null && \
-        echo "Adicionando chave pública Spotify ..." && \
-        sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && \
-        echo "Adicionando repositório Spotify ..." && \
-        echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-        echo "Adicionando chave pública Docker CE ..." && \
-        sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D > /dev/null && \
-        echo "Adicionando repositório Docker CE ..." && \
-        sudo apt-add-repository -y 'deb https://apt.dockerproject.org/repo ubuntu-xenial main' > /dev/null && \
         echo "apt update ..." && \
         sudo apt-get -qq update > /dev/null && \
-        echo "Checando repositório Docker CE ..." && \
-        sudo apt-cache policy docker-engine > /dev/null && \
-        echo "Add graphics-drivers/ppa..." && \
-        sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
         echo "apt install ..." && \
         sudo apt-get -qq -y install nodejs build-essential terminator ${SSH_TOOLS} htop > /dev/null && \
-        sudo apt-get -qq -y install google-chrome-stable qbittorrent spotify-client vlc vlc-data browser-plugin-vlc > /dev/null
+        sudo apt-get -qq -y install google-chrome-stable vlc vlc-data browser-plugin-vlc > /dev/null
         sudo apt-get -qq -y install atom sublime_text > /dev/null && \
         sudo apt -qq -y autoremove;
         ${REPO_PATH}/install_pip_packages.sh
