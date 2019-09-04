@@ -4,6 +4,7 @@ REPO_PATH="$(dirname "$0")"
 cd ${REPO_PATH}
 # Install Package Control for Sublime Text 3
 SUBLIME_CONFIG_PATH="${HOME}/.config/sublime-text-3"
+rm -rf ${SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
 mkdir -p ${SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
 cd ${SUBLIME_CONFIG_PATH}/Installed\ Packages/ && \
 wget https://packagecontrol.io/Package%20Control.sublime-package && \
