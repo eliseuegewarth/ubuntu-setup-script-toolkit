@@ -59,7 +59,6 @@ elif [[ $1 = *"--full"* ]]; then
         fi && \
         ${REPO_PATH}/sublime_text/pre_install.sh
         ${REPO_PATH}/atom/pre_install.sh
-        FILE_MANAGER="nemo" && \
         cd ${HOME}/Downloads/ && \
         echo "Adicionando ppa do libreoffice..." && \
         sudo add-apt-repository -y ppa:libreoffice/ppa > /dev/null && \
@@ -86,8 +85,9 @@ elif [[ $1 = *"--full"* ]]; then
         echo "Add graphics-drivers/ppa..." && \
         sudo add-apt-repository -y ppa:graphics-drivers/ppa && \
         echo "apt install ..." && \
-        sudo apt-get -qq -y install nodejs build-essential ${EDITORS} terminator ${SSH_TOOLS} docker-engine python-pip htop > /dev/null && \
-        sudo apt-get -qq -y install google-chrome-stable qbittorrent ${FILE_MANAGER} spotify-client libreoffice vlc vlc-data browser-plugin-vlc mplayer2 > /dev/null
+        sudo apt-get -qq -y install nodejs build-essential terminator ${SSH_TOOLS} htop > /dev/null && \
+        sudo apt-get -qq -y install google-chrome-stable qbittorrent spotify-client vlc vlc-data browser-plugin-vlc > /dev/null
+        sudo apt-get -qq -y install atom sublime_text > /dev/null && \
         sudo apt -qq -y autoremove;
         echo "Baixando docker-compose ..." && \
         sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-${DISTRO_ARC} -o /usr/local/bin/docker-compose > /dev/null && \
