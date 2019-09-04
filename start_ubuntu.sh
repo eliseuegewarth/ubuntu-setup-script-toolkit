@@ -83,7 +83,8 @@ elif [[ $1 = *"--full"* ]]; then
 
         # Default terminator settings
         mkdir -p ${HOME}/.config/terminator && \
-        cp terminator_config ${HOME}/.config/terminator/config
+        cd ${REPO_PATH} && \
+        cp ${REPO_PATH}/terminator_config ${HOME}/.config/terminator/config
 
         # General bash setup
         if [ -z "$(cat ${HOME}/.bashrc | grep bash_env)" ]; then
