@@ -6,7 +6,7 @@ Bash Utils to configure your system quickly.
 ```
 git clone https://github.com/eliseuegewarth/ubuntu-gnome-16-04-setup.git ~/.magic_setup && \
 cd ~/.magic_setup && \
-source start_ubuntu.sh
+./start_ubuntu.sh --full
 ```
 
 ### The `start_ubuntu.sh` do things like:
