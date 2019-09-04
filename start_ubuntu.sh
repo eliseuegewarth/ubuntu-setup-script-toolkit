@@ -71,7 +71,7 @@ elif [[ $1 = *"--full"* ]]; then
         echo "apt install ..." && \
         sudo apt-get -qq -y install nodejs build-essential terminator ${SSH_TOOLS} htop > /dev/null && \
         sudo apt-get -qq -y install google-chrome-stable vlc vlc-data browser-plugin-vlc > /dev/null
-        sudo apt-get -qq -y install atom sublime_text > /dev/null && \
+        sudo apt-get -qq -y install atom sublime-text > /dev/null && \
         sudo apt -qq -y autoremove;
         ${REPO_PATH}/install_pip_packages.sh
 
