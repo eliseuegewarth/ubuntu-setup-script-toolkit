@@ -1,4 +1,4 @@
-# Ubuntu Gnome 16.04 Setup
+# Ubuntu Setup
 Bash Utils to configure your system quickly.
 
 ### How-To:
