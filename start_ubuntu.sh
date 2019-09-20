@@ -49,8 +49,6 @@ if [[ $1 = *"--basic"* ]]; then
     exit
 elif [[ $1 = *"--full"* ]]; then
     SSH_TOOLS="openssh-server openssh-client"
-    DOCKER_COMPOSE_VERSION=$(curl https://api.github.com/repos/docker/compose/releases/latest -s | grep tag_name | cut -f 2 -d":" | cut -f 2 -d'"')
-    DISTRO_ARC=$(uname -s)-$(uname -m)
     if [ -z "${CONFIGURADO}" ]; then
         echo "Iniciando configurações..." && \
         export REPO_PATH=$(git rev-parse --show-toplevel) && \
