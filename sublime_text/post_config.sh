@@ -1,7 +1,11 @@
 #!/bin/bash
 od="$PWD"
 REPO_PATH="$(dirname "$0")"
-cd ${REPO_PATH}
+if [[ -z "$(echo $REPO_PATH | grep -v '.')" ]]; then
+	REPO_PATH=$PWD
+else
+	cd ${REPO_PATH}
+fi
 # Install Package Control for Sublime Text 3
 SUBLIME_CONFIG_PATH="${HOME}/.config/sublime-text-3"
 rm -rf ${SUBLIME_CONFIG_PATH}/Installed\ Packages/;
