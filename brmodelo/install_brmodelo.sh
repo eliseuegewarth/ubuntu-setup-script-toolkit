@@ -4,15 +4,25 @@
 basedirname="$(dirname "$0")"
 cd $basedirname
 
-brmodelo_path="/opt/brmodelo"
+if [[ $1 = *"--user"* ]]; then
+    brmodelo_path="$HOME/.local/share/brmodelo"
+    permissions='echo "running as user"'
+elif [[ $1 = *"--all"* ]]; then
+    brmodelo_path="/opt/brmodelo"
+    permissions="chmod 777 ${brmodelo_path}"
+else
+    echo "Run with argument '--user' or '--all'."
+    exit 0;
+fi
 
 # Removing previous version of brmodelo
-rm -rf ${brmodelo_path}/ && mkdir -p ${brmodelo_path}/ && chmod 777 ${brmodelo_path}
+rm -rf ${brmodelo_path}/ && mkdir -p ${brmodelo_path}/ && eval $permissions
 
-./download_brmodelo.sh $brmodelo_path
+./download_brmodelo.sh $1
 
 cp brmodelo.sh "${brmodelo_path}/"
+chmod 755 ${brmodelo_path}/brmodelo.sh
 
-./create_desktop_file.sh
+./create_desktop_file.sh $1
 
 echo "Finished Setup..."
