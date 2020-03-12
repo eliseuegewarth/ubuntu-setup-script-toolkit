@@ -18,11 +18,11 @@ fi
 # Removing previous version of brmodelo
 rm -rf ${brmodelo_path}/ && mkdir -p ${brmodelo_path}/ && eval $permissions
 
-./download_brmodelo.sh $1
+source ./download_brmodelo.sh $1
 
 cp brmodelo.sh "${brmodelo_path}/"
 chmod 755 ${brmodelo_path}/brmodelo.sh
 
-./create_desktop_file.sh $1
+source ./create_desktop_file.sh $1
 
 echo "Finished Setup..."

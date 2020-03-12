@@ -1,13 +1,11 @@
 #!/bin/bash
-basedirname="$(dirname "$0")"
-cd $basedirname
 
 if [[ $1 = *"--user"* ]]; then
     brmodelo_path="$HOME/.local/share/brmodelo"
     brmodelo_app_file="${HOME}/.local/share/applications/brmodelo.desktop"
 elif [[ $1 = *"--all"* ]]; then
     brmodelo_path="/opt/brmodelo"
-    brmodelo_app_file="usr/share/applications/brmodelo.desktop"
+    brmodelo_app_file="/usr/share/applications/brmodelo.desktop"
 else
     echo "Run with argument '--user' or '--all'."
     exit 0;
