@@ -84,15 +84,7 @@ elif [[ $1 = *"--full"* ]]; then
         cd ${REPO_PATH} && \
         cp ${REPO_PATH}/terminator_config ${HOME}/.config/terminator/config
 
-        # General bash setup
-        if [ -z "$(cat ${HOME}/.bashrc | grep bash_env)" ]; then
-            echo "Adicionando bash_env em bashrc ..." && \
-            echo -e "\nif [ -f ${HOME}/.bash_env ]; then\n    . ${HOME}/.bash_env\nfi" >> ${HOME}/.bashrc;
-        fi
-
-        echo "Criando links simbolicos bash_aliases e bash_env ..." && \
-        ln -sf ${REPO_PATH}/.bash_aliases ${HOME}/.bash_aliases > /dev/null && \
-        ln -sf ${REPO_PATH}/.bash_env ${HOME}/.bash_env > /dev/null;
+        source ${REPO_PATH}/config_bash.sh
 
         # creating workspace
         echo "Criando ${HOME}/workspace se não existir ..." && \
