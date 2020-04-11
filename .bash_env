@@ -5,5 +5,7 @@ export WORKSPACE="$HOME/workspace/";
 export GIT_COMMENT='!';
 export WORKON_HOME=$HOME/.virtualenvs;
 export PROJECT_HOME="$WORKSPACE";
-source /usr/local/bin/virtualenvwrapper.sh;
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3;
+export VIRTUALENVWRAPPER_VIRTUALENV=/home/eliseuegewarth/.local/bin/virtualenv
+source /home/eliseuegewarth/.local/bin/virtualenvwrapper.sh;
 echo "env loaded ...";
