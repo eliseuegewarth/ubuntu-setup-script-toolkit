@@ -7,7 +7,7 @@ if [ ! -f $HOME/.ssh/id_rsa ]; then
 	echo "Chave configurada"
 	eval "$(ssh-agent -s)"
 	echo "Chave configurada"
-	ssh-add -N "${GIT_USER_PASSWORD}"  ~/.ssh/id_rsa;
+	ssh-add ~/.ssh/id_rsa;
 	echo "Chave gerada e adicionada ao ssh-agent. Adicione a chave ao seu repositório."
 else
 	echo "Já existe uma chave SSH configurada."
